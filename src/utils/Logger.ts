@@ -1,8 +1,10 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import chalk from 'chalk';
+import { resolveStatusCode } from '../utils/httpStatusCodes';
 
 export enum LogType {
   info = 'info',
+  warn = 'warn',
   error = 'error',
 }
 
@@ -15,22 +17,31 @@ export class ExpressLogger {
     switch (type) {
       case LogType.info:
         return chalk.blue(type.toUpperCase());
+      case LogType.warn:
+        return chalk.yellow(type.toUpperCase());
       case LogType.error:
         return chalk.red(type.toUpperCase());
     }
   }
 
-  protected static template(type: LogType, req: Request, content?: string): string {
+  protected static template(type: LogType, req: Request, res: Response, content?: string): string {
+    const status = resolveStatusCode(res.statusCode);
+    const statusStr = `${status.statusCode} ${status.description}`;
+
     return `${this.timestamp()} [${this.colorizedType(type)}] - ${req.ip} - ${req.method} ${
       req.originalUrl
-    } - ${req.get('User-Agent')} ${content && `- ${content}`}`;
+    } - ${statusStr} - ${req.get('User-Agent')} ${content && `- ${content}`}`;
   }
 
-  static info(req: Request, content = ''): void {
-    console.log(this.template(LogType.info, req, content));
+  static info(req: Request, res: Response, content = ''): void {
+    console.log(this.template(LogType.info, req, res, content));
   }
 
-  static error(req: Request, content = ''): void {
-    console.error(this.template(LogType.error, req, content));
+  static warn(req: Request, res: Response, content = ''): void {
+    console.log(this.template(LogType.warn, req, res, content));
+  }
+
+  static error(req: Request, res: Response, content = ''): void {
+    console.error(this.template(LogType.error, req, res, content));
   }
 }
