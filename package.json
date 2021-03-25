@@ -6,9 +6,11 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "build": "rimraf dist && tsc --project tsconfig.json",
+    "prebuild": "rimraf dist",
+    "build": "tsc --project tsconfig.json",
+    "postbuild": "tscpaths -p tsconfig.json -s ./src -o ./dist",
     "start": "NODE_OPTIONS=--enable-source-maps node dist/server.js",
-    "dev": "ts-node-dev src/server.ts",
+    "dev": "ts-node-dev  -r tsconfig-paths/register src/server.ts",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix"
   },
@@ -28,6 +30,8 @@
     "rimraf": "^2.7.1",
     "ts-jest": "^26.5.4",
     "ts-node-dev": "^1.1.6",
+    "tsconfig-paths": "^3.9.0",
+    "tscpaths": "^0.0.9",
     "typescript": "^4.2.3"
   },
   "dependencies": {
