@@ -7,4 +7,9 @@ export const errors: Record<string, ClientErrorModel> = {
     message: 'Unknow error',
     httpStatus: httpStatusCodes.internalError,
   },
+  notFound: {
+    code: 'ERR_NOT_FOUND',
+    message: `This resource doesn't exists`,
+    httpStatus: httpStatusCodes.notFound,
+  },
 };
