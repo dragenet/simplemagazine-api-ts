@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import chalk from 'chalk';
-import { resolveStatusCode } from '../utils/httpStatusCodes';
+import { resolveStatusCode } from './httpStatusCodes';
 
 export enum LogType {
   info = 'info',
