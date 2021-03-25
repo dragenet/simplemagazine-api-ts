@@ -40,18 +40,25 @@ export class ExpressLogger {
     } - ${statusStr} - ${execMs?.toFixed(2).concat('ms')} - ${req.get('User-Agent')} ${content && `- ${content}`}`;
   }
 
-  static info(req: Request, res: Response, content = ''): void {
+  private static log(logType: LogType, req: Request, res: Response, content = '') {
     const execTime = this.resolveExecTime(req);
-    console.log(this.template(LogType.info, req, res, content, execTime));
+
+    //prettier-ignore
+    if (logType === LogType.info)
+      console.log(this.template(logType, req, res, content, execTime));
+    else
+      console.error(this.template(logType, req, res, content, execTime));
+  }
+
+  static info(req: Request, res: Response, content = ''): void {
+    this.log(LogType.info, req, res, content);
   }
 
   static warn(req: Request, res: Response, content = ''): void {
-    const execTime = this.resolveExecTime(req);
-    console.error(this.template(LogType.warn, req, res, content, execTime));
+    this.log(LogType.warn, req, res, content);
   }
 
   static error(req: Request, res: Response, content = ''): void {
-    const execTime = this.resolveExecTime(req);
-    console.error(this.template(LogType.error, req, res, content, execTime));
+    this.log(LogType.error, req, res, content);
   }
 }
