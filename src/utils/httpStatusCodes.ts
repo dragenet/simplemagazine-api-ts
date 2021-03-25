@@ -1,9 +1,9 @@
-interface StatusCode {
+export interface HttpStatus {
   statusCode: number;
   description: string;
 }
 
-export const httpStatusCodes: Record<string, StatusCode> = {
+export const httpStatusCodes: Record<string, HttpStatus> = {
   ok: {
     statusCode: 200,
     description: 'Ok',
@@ -12,9 +12,13 @@ export const httpStatusCodes: Record<string, StatusCode> = {
     statusCode: 404,
     description: 'Not Found',
   },
+  internalError: {
+    statusCode: 500,
+    description: 'Internal Server Error',
+  },
 };
 
-export const resolveStatusCode = (code: number): StatusCode => {
-  const [status] = Object.values(httpStatusCodes).filter((value: StatusCode) => value.statusCode === code);
+export const resolveStatusCode = (code: number): HttpStatus => {
+  const [status] = Object.values(httpStatusCodes).filter((value: HttpStatus) => value.statusCode === code);
   return status;
 };
