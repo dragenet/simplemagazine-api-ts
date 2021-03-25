@@ -14,7 +14,10 @@ app.use(infoLoggerMiddleware);
 app.use(config.API_ENTRY_POINT, (req, res) => res.status(200).send('Hello du**ing world'));
 app.use('/error', (req, res) => {
   res.status(404).end();
-  throw new Error('You find error path');
+  throw new Error(`You're master of error finding`);
+});
+app.use('*', () => {
+  throw new ClientError(errors.notFound);
 });
 
 // app.use(errorHandler);
