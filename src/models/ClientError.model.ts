@@ -1,4 +1,4 @@
-import { HttpStatus } from '../utils/httpStatusCodes';
+import { HttpStatus } from './HttpStatus.model';
 
 export interface ClientErrorModel {
   code: string;

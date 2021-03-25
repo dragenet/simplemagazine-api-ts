@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { ExpressLogger as Logger } from '../utils/ExpressLogger';
+import { ExpressLogger as Logger } from '@/utils/ExpressLogger';
 
 type Errors = Error;
 

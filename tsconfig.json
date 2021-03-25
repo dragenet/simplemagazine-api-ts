@@ -16,11 +16,7 @@
 
     "esModuleInterop": true,
     "paths": {
-      "@config/*": ["src/config/*"],
-      "@errors/*": ["src/errors/*"],
-      "@middlewares/*": ["src/middlewares/*"],
-      "@models/*": ["src/models/*"],
-      "@utils/*": ["src/utils/*"]
+      "@/*": ["src/*"]
     },
 
     "resolveJsonModule": true,

@@ -1,6 +1,6 @@
-import { HttpStatus } from '../utils/httpStatusCodes';
 import { errors } from './errors';
-import { ClientErrorModel } from '../models';
+import { HttpStatus } from '@/models/HttpStatus.model';
+import { ClientErrorModel } from '@/models/ClientError.model';
 
 export class ClientError extends Error {
   code: string;

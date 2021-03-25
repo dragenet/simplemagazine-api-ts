@@ -1,8 +1,10 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 
-import { config } from './config/config';
-import { errorLoggerMiddleware, infoLoggerMiddleware } from './middlewares/loggerMiddleware';
+import { config } from '@/config/config';
+import { errorLoggerMiddleware, infoLoggerMiddleware } from '@/middlewares/loggerMiddleware';
+import { ClientError } from '@/errors/ClientError';
+import { errors } from '@/errors/errors';
 
 const app = express();
 

@@ -1,5 +1,5 @@
-import { httpStatusCodes, HttpStatus } from '../utils/httpStatusCodes';
-import { ClientErrorModel } from '../models';
+import { httpStatusCodes } from '@/utils/httpStatusCodes';
+import { ClientErrorModel } from '@/models/ClientError.model';
 
 export const errors: Record<string, ClientErrorModel> = {
   default: {

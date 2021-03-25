@@ -1,8 +1,4 @@
-export interface HttpStatus {
-  statusCode: number;
-  description: string;
-}
-
+import { HttpStatus } from '@/models/HttpStatus.model';
 export const httpStatusCodes: Record<string, HttpStatus> = {
   ok: {
     statusCode: 200,
