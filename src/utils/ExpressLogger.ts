@@ -7,7 +7,6 @@ export enum LogType {
   warn = 'warn',
   error = 'error',
 }
-
 export class ExpressLogger {
   private static timestamp(): string {
     return new Date().toISOString();
@@ -24,24 +23,35 @@ export class ExpressLogger {
     }
   }
 
-  protected static template(type: LogType, req: Request, res: Response, content?: string): string {
+  private static resolveExecTime(req: Partial<Request>): number | undefined {
+    const endedAt = process.hrtime.bigint();
+    if (req.startedAt) {
+      return Number(endedAt - req.startedAt) / 1000000;
+    }
+    return undefined;
+  }
+
+  protected static template(type: LogType, req: Request, res: Response, content?: string, execMs?: number): string {
     const status = resolveStatusCode(res.statusCode);
     const statusStr = `${status.statusCode} ${status.description}`;
 
     return `${this.timestamp()} [${this.colorizedType(type)}] - ${req.ip} - ${req.method} ${
       req.originalUrl
-    } - ${statusStr} - ${req.get('User-Agent')} ${content && `- ${content}`}`;
+    } - ${statusStr} - ${execMs?.toFixed(2).concat('ms')} - ${req.get('User-Agent')} ${content && `- ${content}`}`;
   }
 
   static info(req: Request, res: Response, content = ''): void {
-    console.log(this.template(LogType.info, req, res, content));
+    const execTime = this.resolveExecTime(req);
+    console.log(this.template(LogType.info, req, res, content, execTime));
   }
 
   static warn(req: Request, res: Response, content = ''): void {
-    console.log(this.template(LogType.warn, req, res, content));
+    const execTime = this.resolveExecTime(req);
+    console.error(this.template(LogType.warn, req, res, content, execTime));
   }
 
   static error(req: Request, res: Response, content = ''): void {
-    console.error(this.template(LogType.error, req, res, content));
+    const execTime = this.resolveExecTime(req);
+    console.error(this.template(LogType.error, req, res, content, execTime));
   }
 }

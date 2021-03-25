@@ -1,5 +1,6 @@
 declare namespace Express {
   interface Request {
-    logged: boolean;
+    logged?: boolean;
+    startedAt?: bigint;
   }
 }
