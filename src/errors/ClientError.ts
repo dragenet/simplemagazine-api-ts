@@ -16,4 +16,8 @@ export class ClientError extends Error {
   valueOf(): ClientErrorModel {
     return { code: this.code, message: this.message, httpStatus: this.httpStatus };
   }
+
+  toString(): string {
+    return `ClientError: ${this.code}`;
+  }
 }
