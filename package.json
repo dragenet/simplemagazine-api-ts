@@ -1,20 +1,23 @@
 {
-  "name": "@dragenet/node-ts-template",
+  "name": "@dragenet/simplemagazine-api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "dist/server.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "build": "tsc --project tsconfig.json",
-    "start": "NODE_OPTIONS=--enable-source-maps node dist/app.js",
-    "dev": "ts-node-dev src/app.ts",
+    "build": "rimraf dist && tsc --project tsconfig.json",
+    "start": "NODE_OPTIONS=--enable-source-maps node dist/server.js",
+    "dev": "ts-node-dev src/server.ts",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix"
   },
   "author": "dragenet <dragenetdev@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/dotenv-flow": "^3.1.0",
+    "@types/express": "^4.17.11",
     "@types/jest": "^26.0.21",
     "@types/node": "^14.14.35",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
@@ -22,8 +25,16 @@
     "eslint": "^7.22.0",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
+    "rimraf": "^2.7.1",
     "ts-jest": "^26.5.4",
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "@types/chalk": "^2.2.0",
+    "chalk": "^4.1.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.17.1"
   }
 }
